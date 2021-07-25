@@ -37,12 +37,12 @@ uint8_t vox_encode_step(VOX *state, int16_t sample)
         code |= 0x4;
     }
 
-    if (diff >= ss / 2) {
-        diff -= ss / 2;
+    if (diff >= ss >> 1) {
+        diff -= ss >> 1;
         code |= 0x2;
     }
 
-    if (diff >= ss / 4)
+    if (diff >= ss >> 2)
         code |= 0x1;
     
     state->last = vox_decode_step(state, code);
