@@ -66,7 +66,6 @@ int16_t vox_decode_step(VOX *state, uint8_t code)
 
     if (sample > 2047)
         sample = 2047;
-    else 
     if (sample < -2048)
         sample = -2048;
 
