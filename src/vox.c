@@ -59,7 +59,7 @@ int16_t vox_decode_step(VOX *state, uint8_t code)
 
     int16_t sample  = state->last + diff;
 
-    CLAMP(state->step_idx, -2048, 2047);
+    CLAMP(sample, -2048, 2047);
 
     next_step_idx(state, code);
 
