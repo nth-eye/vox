@@ -1,5 +1,7 @@
 #include "vox.h"
 
+#define CLAMP(x, min, max)  (x = x < min ? min : (x > max ? max : x))
+
 static const int16_t step_size[49] = { 
     16, 17, 19, 21, 23, 25, 28, 31, 34, 37, 41, 45, 
     50, 55, 60, 66, 73, 80, 88, 97, 107, 118, 130, 143, 
@@ -15,10 +17,7 @@ static void next_step_idx(VOX *state, uint8_t sample)
 {
     state->step_idx += step_adjust[sample & 0x7];
 
-    if (state->step_idx < 0) 
-        state->step_idx = 0;
-    if (state->step_idx > 48) 
-        state->step_idx = 48;
+    CLAMP(state->step_idx, 0, 48);
 }
 
 uint8_t vox_encode_step(VOX *state, int16_t sample)
@@ -53,21 +52,14 @@ uint8_t vox_encode_step(VOX *state, int16_t sample)
 int16_t vox_decode_step(VOX *state, uint8_t code)
 {
     int16_t ss      = step_size[state->step_idx];
-    int16_t diff    = 
-        ( ss        * ((code >> 2) & 0x1)) + 
-        ((ss >> 1)  * ((code >> 1) & 0x1)) + 
-        ((ss >> 2)  * ( code       & 0x1)) + 
-        ( ss >> 3);
+    int16_t diff    = (((code & 0x7) * 2 + 1) * ss) >> 3;
 
     if (code & 0x8)
         diff = -diff;
 
     int16_t sample  = state->last + diff;
 
-    if (sample > 2047)
-        sample = 2047;
-    if (sample < -2048)
-        sample = -2048;
+    CLAMP(state->step_idx, -2048, 2047);
 
     next_step_idx(state, code);
 
