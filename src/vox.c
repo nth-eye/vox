@@ -85,6 +85,7 @@ void vox_encode(VOX *state, int16_t *in, uint8_t *out, size_t len)
     }
 }
 
+// len is input length is bytes.
 void vox_decode(VOX *state, uint8_t *in, int16_t *out, size_t len)
 {
     for (size_t i = 0; i < len; ++i) {
