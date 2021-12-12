@@ -28,7 +28,7 @@ void vox_init(VOX *state);
  * 
  * @param state Codec context
  * @param in Input samples
- * @param out Encoded bytes
+ * @param out Encoded output bytes
  * @param len Input length in samples, not in bytes
  */
 void vox_encode(VOX *state, int16_t *in, uint8_t *out, size_t len);
@@ -39,7 +39,7 @@ void vox_encode(VOX *state, int16_t *in, uint8_t *out, size_t len);
  * 
  * @param state Codec context
  * @param in Encoded input bytes
- * @param out Decoded output sample
+ * @param out Decoded output samples
  * @param len Input length in bytes, not in samples
  */
 void vox_decode(VOX *state, uint8_t *in, int16_t *out, size_t len);
