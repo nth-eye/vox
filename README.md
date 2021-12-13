@@ -7,7 +7,7 @@ Dialogic ADPCM codec in C.
 ```c
 VOX vox;
 
-uint8_t encoded[512]; // must be at least sizeof(samples) / 2
+uint8_t encoded[512]; // must be at least sizeof(samples) / 4
 int16_t samples[1024];
 
 // ...fill samples...
