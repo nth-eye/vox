@@ -1,24 +1,19 @@
 # vox
 
-Dialogic ADPCM codec in C.
+Header-only dialogic ADPCM codec in C++.
 
 ## How to use
 
-```c
-VOX vox;
+```c++
+Vox vox;
 
 uint8_t encoded[512]; // must be at least sizeof(samples) / 4
 int16_t samples[1024];
 
-// ...fill samples...
+// fill samples...
 
-vox_init(&vox);
-vox_encode(&vox, samples, encoded, sizeof(samples));
-
+vox.init();
+vox.encode(samples, encoded, sizeof(samples) / sizeof(int16_t));
 ```
 
-Example with reading from file can be found in main.c
-
-## TODO
-
-**_Nothing_**
+Example with reading from file can be found in main.cpp
